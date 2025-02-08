@@ -8,33 +8,33 @@ on:
 jobs:
   auto-bot-review:
     runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.12.9
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.9
 
-    - name: Install gh CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install gh
+      - name: Install gh CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh
 
-    - name: Install gh CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install gh
+      - name: Install gh CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh
 
-    - name: Authenticate gh CLI
-      run: |
-        echo "${{ secrets.EXAMPLESECRET }}" | gh auth login --with-token
+      - name: Authenticate gh CLI
+        run: |
+          echo "${{ secrets.EXAMPLESECRET }}" | gh auth login --with-token
 
-    - name: Download PR Patch
-      run: curl -L "${{ github.event.pull_request.patch_url }}" -o pr.patch
+      - name: Download PR Patch
+        run: curl -L "${{ github.event.pull_request.patch_url }}" -o pr.patch
 
-    - name: Debug
-      run: |
-        run: echo '${{ toJSON(github.event) }}' | jq .
-        run: cat pr.patch
+      - name: Debug
+        run: |
+          run: echo '${{ toJSON(github.event) }}' | jq .
+          run: cat pr.patch
