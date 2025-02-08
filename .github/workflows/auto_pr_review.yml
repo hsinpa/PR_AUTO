@@ -36,5 +36,5 @@ jobs:
 
       - name: Debug
         run: |
-          run: echo '${{ toJSON(github.event) }}' | jq .
-          run: cat pr.patch
+          echo '${{ toJSON(github.event) }}' | jq .
+          cat pr.patch
