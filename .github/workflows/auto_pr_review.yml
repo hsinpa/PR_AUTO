@@ -1,13 +1,13 @@
 name: AUTO PR Review
-
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
-
+    types:
+      - opened
+      - synchronize
+      - reopened
 jobs:
   auto-bot-review:
     runs-on: ubuntu-latest
-
   steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12.9"
+        python-version: 3.12.9
 
     - name: Install gh CLI
       run: |
