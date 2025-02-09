@@ -22,11 +22,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install gh
 
-      - name: Install gh CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install gh
-
       - name: Authenticate gh CLI
         run: |
           echo "${{ secrets.HSINPA_BOT_GH_PAT }}" | gh auth login --with-token

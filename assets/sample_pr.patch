@@ -1,0 +1,19 @@
+From d46bb87b79e5b3ef6d7fc7f8f8e73b8b003603d9 Mon Sep 17 00:00:00 2001
+From: Hsinpa <hsinpa@gmail.com>
+Date: Sat, 8 Feb 2025 14:47:01 +0800
+Subject: [PATCH] add debug file
+
+---
+ debug_python_file.py | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 debug_python_file.py
+
+diff --git a/debug_python_file.py b/debug_python_file.py
+new file mode 100644
+index 0000000..7720306
+--- /dev/null
++++ b/debug_python_file.py
+@@ -0,0 +1,2 @@
++if __name__ == '__main__':
++    print('hello world')
+\ No newline at end of file
