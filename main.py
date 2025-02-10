@@ -25,7 +25,7 @@ def main():
             agent = PRBotAgent(ClassicILLMLoader())
             agent_graph = agent.create_graph()
 
-            agent_graph.ainvoke({
+            agent_graph.invoke({
                 'pr_patch': filtered_p
             },
             {'run_name': 'Lesson Summary v2', "callbacks": get_langfuse_callback()},

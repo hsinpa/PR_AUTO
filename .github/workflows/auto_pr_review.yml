@@ -26,6 +26,21 @@ jobs:
         run: |
           echo "${{ secrets.HSINPA_BOT_GH_PAT }}" | gh auth login --with-token
 
+      - name: Clone a private repository
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/hsinpa/PR_AUTO.git
+          cd PR_AUTO
+
+      - name: Create .env file with multiple variables
+        run: |
+          echo "OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}}" > .env
+          echo "LANGFUSE_SECRET_KEY=${{secrets.LANGFUSE_SECRET_KEY}}" >> .env
+          echo "LANGFUSE_PUBLIC_KEY=${{secrets.LANGFUSE_PUBLIC_KEY}}" >> .env
+          echo "LANGFUSE_HOST=${{secrets.LANGFUSE_HOST}}" >> .env
+
+      - name: Install requirements.txt
+        run: pip install -r requirements.txt
+
       - name: Download PR Patch
         run: curl -L "${{ github.event.pull_request.patch_url }}" -o pr.patch
 
@@ -33,3 +48,7 @@ jobs:
         run: |
           echo '${{ toJSON(github.event) }}' | jq .
           cat pr.patch
+
+      - name: Execute
+        run: |
+          python main.py pr.patch

@@ -12,7 +12,7 @@ class PRBotAgent:
     def __init__(self, llm_loader: ILLMLoader, ):
         self._llm_loader = llm_loader
 
-    async def _generate_pr_review_plan(self, state: ChatbotAgentState):
+    def _generate_pr_review_plan(self, state: ChatbotAgentState):
         simple_chain = ModulePromptFactory(
             StrOutputParser(),
             model=self._llm_loader.get_llm_model(GPT4o_mini),
@@ -24,7 +24,7 @@ class PRBotAgent:
             human_prompt_text=PLAN_HUMAN_PROMPT,
         ).create_chain()
 
-        r = await simple_chain.with_config({"run_name": "PR Plan"}).ainvoke({})
+        r = simple_chain.with_config({"run_name": "PR Plan"}).invoke({})
 
         return {'plan': r}
 
