@@ -2,6 +2,7 @@ import sys
 from dotenv import load_dotenv
 
 from filter_pr_helper import filter_patch
+from src.github_comment import send_github_comment
 from src.pr_bot_agent import PRBotAgent
 from src.utility.langfuse_helper import get_langfuse_callback
 from src.utility.model_loader import ClassicILLMLoader
@@ -15,6 +16,7 @@ def main():
         sys.exit(1)
 
     patch_file = sys.argv[1]
+    comment_url = sys.argv[2]
 
     try:
         with open(patch_file, 'r') as file:
@@ -25,11 +27,13 @@ def main():
             agent = PRBotAgent(ClassicILLMLoader())
             agent_graph = agent.create_graph()
 
-            agent_graph.invoke({
+            feedback_content = agent_graph.invoke({
                 'pr_patch': filtered_p
             },
             {'run_name': 'Lesson Summary v2', "callbacks": get_langfuse_callback()},
                                 )
+            send_github_comment(comment_url, feedback_content)
+
     except Exception as e:
         print(f"Error reading {patch_file}: {e}")
         sys.exit(1)

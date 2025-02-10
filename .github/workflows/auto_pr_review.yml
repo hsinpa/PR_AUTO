@@ -24,7 +24,7 @@ jobs:
 
       - name: Authenticate gh CLI
         run: |
-          echo "${{ secrets.HSINPA_BOT_GH_PAT }}" | gh auth login --with-token
+          echo "${{ secrets.BOT_GH_PAT }}" | gh auth login --with-token
 
       - name: Clone a private repository
         run: |
@@ -37,6 +37,7 @@ jobs:
           echo "LANGFUSE_SECRET_KEY=${{secrets.LANGFUSE_SECRET_KEY}}" >> .env
           echo "LANGFUSE_PUBLIC_KEY=${{secrets.LANGFUSE_PUBLIC_KEY}}" >> .env
           echo "LANGFUSE_HOST=${{secrets.LANGFUSE_HOST}}" >> .env
+          echo "BOT_GH_PAT=${{secrets.BOT_GH_PAT}}" >> .env
 
       - name: Install requirements.txt
         run: pip install -r requirements.txt
@@ -51,4 +52,4 @@ jobs:
 
       - name: Execute
         run: |
-          python main.py pr.patch
+          python main.py pr.patch '${{ github.event.pull_request.comments_url}}'
