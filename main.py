@@ -30,9 +30,9 @@ def main():
             feedback_content = agent_graph.invoke({
                 'pr_patch': filtered_p
             },
-            {'run_name': 'Lesson Summary v2', "callbacks": get_langfuse_callback()},
-                                )
-            send_github_comment(comment_url, feedback_content)
+            {'run_name': 'Lesson Summary v2', "callbacks": get_langfuse_callback()})
+
+            send_github_comment(comment_url, feedback_content['plan'])
 
     except Exception as e:
         print(f"Error reading {patch_file}: {e}")
