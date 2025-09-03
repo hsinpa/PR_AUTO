@@ -1,0 +1,15 @@
+pr_agent_config/custom_instruction.txt
+
+## Python Style and Formatting
+
+PEP 8 compliance and specific style violations to look for
+Import organization and formatting (PEP 328)
+Naming conventions for variables, functions, classes, modules, and constants
+Comment and docstring formatting (PEP 257)
+
+
+## For each section, provide:
+
+Good examples showing the Pythonic way
+Bad examples showing common anti-patterns
+Checklist items for reviewers

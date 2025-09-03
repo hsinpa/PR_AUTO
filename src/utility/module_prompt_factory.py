@@ -2,8 +2,6 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.output_parsers import BaseOutputParser
 from langchain.schema.messages import SystemMessage
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
-from langfuse.callback import CallbackHandler
-
 
 class ModulePromptFactory:
     """A factory only accept and run one prompt, nothing more"""
@@ -19,7 +17,6 @@ class ModulePromptFactory:
         temperature: float = 0.75,
         json_response: bool = False,
         name: str = None,
-        langfuse_callback: CallbackHandler = None,
     ) -> None:
         if partial_variables is None:
             partial_variables = {}
@@ -40,7 +37,6 @@ class ModulePromptFactory:
         self.input_variables = input_variables
         self.model = model.bind(stop=['<|eot_id|>'])
         self.name = name
-        self.langfuse_callback = langfuse_callback
 
     def __create_prompt(self):
         messages = [
@@ -61,8 +57,5 @@ class ModulePromptFactory:
 
         prompt = self.__create_prompt()
         chain = prompt | self.model | self.output_parser
-
-        if self.langfuse_callback is not None:
-            chain = chain.with_config({"callbacks": [self.langfuse_callback]})
 
         return chain
